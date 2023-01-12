@@ -1,17 +1,13 @@
 package com.example.myloginjfx;
-import com.example.myloginjfx.SceneSwitcher;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Optional;
+
 
 public class LoginController {
     @FXML
@@ -23,72 +19,57 @@ public class LoginController {
     @FXML
     private Button btnSignIn;
 
-    // A series of checks to discover whether the text fields contain
-    // the correct information to proceed.
-    // Never advise the user that they have incorrectly used the username
-    // as this can be used to bruteforce the use of the correct password.
 
-//    public void switchToLoggedInScene() throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(LoginApplication.class.getResource("loggedIn-View.fxml"));
-//        Stage stage = (Stage) btnOK.getScene().getWindow();
-//        Scene scene = new Scene(fxmlLoader.load(), 200, 400);
-//        stage.setTitle("You're logged in");
-//        stage.setScene(scene);
-//        stage.show();
-//    }
+
+    /* if statement checks to see whether the text fields contain
+       the correct credentials */
     @FXML
-    public void onSignInBtnClick() throws IOException {
-        // Both of these values will be hidden naturally
-        // so it's not good practice to leave username and password on display
-        String username = "admin";
-        String password = "PaSSword!!!";
-
-        if(txtUsername.getText().toLowerCase().equals(username) && txtPassword.getText().equals(password)){
-//            Alert b;
-//            b = new Alert(Alert.AlertType.INFORMATION, "Access Granted!", ButtonType.OK);
-//            b.showAndWait();
-//            resetTextFields();
+    // verification method. checks to see if the username and password entered matches
+    // the ones set
+    public void onSignInBtnClicked() throws IOException {
+        // username and password I've set
+        String username = "Amy";
+        String password = "123";
+        // if the username and password is correct, the scene switches to loggedIn-view
+        if(txtUsername.getText().equals(username) && txtPassword.getText().equals(password)){
             Stage stage = (Stage) btnSignIn.getScene().getWindow();
             SceneSwitcher sceneSwitcher = new SceneSwitcher();
-            sceneSwitcher.switchScene(stage,"loggedIn-View.fxml", " ");
+            sceneSwitcher.switchScene(stage,"loggedIn-View.fxml", " You're logged in!");
 
         }
+        // if the username and password is incorrect an alert pops up
         else {
             Alert a;
             a = new Alert(Alert.AlertType.ERROR, "Username or Password not recognised!", ButtonType.OK);
             a.showAndWait();
             resetTextFields();
-
         }
     }
 
-    // This is one method used to close down the application
-    // if someone cancels the login process, they are
-    // closing down the entire application.
+ //   closes down the entire application when cancel is clicked
     @FXML
-    public void onCancelButtonClick(){
+    public void onExitButtonClicked(){
         Platform.exit();
     }
 
-    // Associated with the view's reset button
-    @FXML
-    public void onResetButtonClick(){
-        resetTextFields();
-    }
-
-    // ResetTextFields is recycled throughout the application
-    // You could simply add the two lines into onResetButtonClick()
-    // and use this, and although this is efficient it does not
-    // read well.
+    // this method resets the text in the text field
     public void resetTextFields(){
         txtUsername.setText("");
         txtPassword.setText("");
         btnSignIn.setDisable(true); // resets the OK button back to reset for continuity
     }
 
-    // OK button set to disabled on view prevents the use of this
-    // button until both username and password text fields have been
-    // filled.
+    // using the resetTextFields method, when the user clicks the reset button
+    // the text field is cleared
+    @FXML
+    public void onResetButtonClicked(){
+        resetTextFields();
+    }
+
+
+    /* Sign in button set to disabled on view prevents the use of this
+        button until both username and password text fields have been
+        filled.*/
     public void activateOKButton(){
         if (!txtUsername.getText().isEmpty() && !txtPassword.getText().isEmpty()){
             btnSignIn.setDisable(false);
