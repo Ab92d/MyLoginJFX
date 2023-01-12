@@ -23,6 +23,7 @@
     -fx-background-color: transparent;
     -fx-border-color: #008F8C;
     -fx-border-width: 0px 0px 1px 0px;
+    -fx-text-fill: white;
 }
 
 .tf {
@@ -32,6 +33,7 @@
     -fx-background-color: #008F8C;
     -fx-background-radius: 5px;
     -fx-text-fill: #C7FFED;
+    -fx-alignment: CENTER;
 }
 
 .pink-box{
